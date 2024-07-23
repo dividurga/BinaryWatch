@@ -1,5 +1,24 @@
+/*
+This code uses the in-built RTC of the STM32G070KBT6, and then converts this data into a "binary but base 10 format". 
+This means that each digit of the time in base 10 format is displayed in binary. 
+
+For example, 17:15 is expressed on the LED matrix as: 
+  0   0 
+  1 0 1
+0 1 0 0
+1 1 1 1 
+
+where 1 = LED ON and 0 = LED OFF
+
+This code makes optimizations, like using the lowpower library to conserve battery life, and using the EEPROM memory
+to store if the time has been reset already.
+
+Created by Divija Durga, 23 July, 2024
+*/
+
 #include <STM32RTC.h>
 #include "STM32LowPower.h"
+#include <EEPROM.h> // Include EEPROM library
 
 // Get the rtc object
 STM32RTC& rtc = STM32RTC::getInstance();
@@ -9,10 +28,15 @@ const int pin = PA0; // Pin for waking up
 const uint8_t col[4] = {PB2, PB1, PB0, PA7}; // Columns of the LED matrix
 const uint8_t row[4] = {PA8, PA9, PC6, PA10}; // Rows of the LED matrix
 
+const int eepromAddress = 0; // EEPROM address to store the reset flag
+
 void setup() {
   Serial.begin(9600); // Start serial communication at 9600 baud rate
-  pinMode(LED_BUILTIN, OUTPUT); // Set built-in LED pin as output
-
+// Initialize the column and row pins
+  for (int i = 0; i < 4; i++) {
+    pinMode(col[i], OUTPUT);
+    pinMode(row[i], OUTPUT);
+  }
   // Set pin as INPUT_PULLUP to avoid spurious wakeup
   pinMode(pin, INPUT_PULLUP);
 
@@ -24,21 +48,26 @@ void setup() {
   //rtc.setClockSource(STM32RTC::LSE_CLOCK);
 
   rtc.begin(); // Initialize RTC in 24H format
+  // Check if the RTC time has been set before
+  if (EEPROM.read(eepromAddress) != 1) {
+    // RTC time has not been set, set it to compile time
+    const char compileTime[] = __TIME__;
+    int hour, minute, second;
+    sscanf(compileTime, "%d:%d:%d", &hour, &minute, &second);
 
-  // Extract compile date and time
-  const char compileTime[] = __TIME__;
+    rtc.setHours(hour);
+    rtc.setMinutes(minute);
+    rtc.setSeconds(second);
 
-  int hour, minute, second;
-  
-  
-
-  // Parse the compile time
-  sscanf(compileTime, "%d:%d:%d", &hour, &minute, &second);
-
-  // Set RTC time with compile time
-  rtc.setHours(hour);
-  rtc.setMinutes(minute);
-  rtc.setSeconds(second);
+    // Write flag to EEPROM indicating that the time has been set
+    EEPROM.write(eepromAddress, 1);
+    //EEPROM.commit();
+  } else {
+    // RTC time has been set before, set it to 00:00
+    rtc.setHours(0);
+    rtc.setMinutes(0);
+    rtc.setSeconds(0);
+  }
 
   // Clear the LED matrix
   clearMatrix();
@@ -51,11 +80,8 @@ void loop() {
   // Empty loop
 }
 
-
-
 // Print date and time
 void printTime() {
-
   // Print time
   Serial.printf("%02d:%02d:%02d.%03d\n", rtc.getHours(), rtc.getMinutes(), rtc.getSeconds(), rtc.getSubSeconds());
 
