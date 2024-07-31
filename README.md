@@ -38,4 +38,4 @@ The firmware from the STM32 version can be modified to work for this hardware. U
 
 ## Contributing
 
-Contributions are welcome! If you have any suggestions or improvements, please open an issue or submit a pull request.
+Contributions are welcome! I'm still struggling with getting the external oscillator to work with my setup. It works perfectly fine on an external Nucleo board. If you have any suggestions or improvements, please open an issue or submit a pull request.
