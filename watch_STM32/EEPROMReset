@@ -1,0 +1,14 @@
+// Use this code to reset the flag in EEPROM memory
+#include <EEPROM.h>  // Include EEPROM library
+const int eepromAddress = 0;  // EEPROM address to store the reset flag
+
+void setup() {
+  // put your setup code here, to run once:
+    EEPROM.write(eepromAddress, 0);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
