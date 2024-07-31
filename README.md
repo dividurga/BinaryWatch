@@ -19,16 +19,13 @@ where 1 = LED ON and 0 = LED OFF
 
 ## Repository Structure
 
-### watchSTM32
+### watch_STM32
 This directory contains the design and firmware for the STM32-based binary watch.
-
-- **hardware**: Contains schematics, PCB layouts, and other hardware-related files.
-- **firmware**: Contains the source code for the STM32 microcontroller.
 
 ### watch_ATMega328p
 This directory contains the design for the ATMega328p-based binary watch.
 
-The firmware from the STM32 version can be modified to work for this hardware. Use the arduino versions of all the libraries and an RTC library for DS3231
+The firmware from the STM32 version can be modified to work for this hardware. Use the arduino versions of all the libraries and an RTC library for the DS3231 RTC chip
 
 ### Setting the Time
 
