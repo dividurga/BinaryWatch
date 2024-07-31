@@ -8,8 +8,11 @@ The Binary Watch is designed to display the time in a "binary but base 10 format
 
 For example, 17:15 is expressed on the LED matrix as:
   0   0 
+  
   1 0 1
+  
 0 1 0 0
+
 1 1 1 1 
 
 where 1 = LED ON and 0 = LED OFF
