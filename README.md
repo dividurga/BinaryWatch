@@ -7,13 +7,13 @@ Welcome to the Binary Watch project! This repository contains all the files rela
 The Binary Watch is designed to display the time in a "binary but base 10 format". This means each digit of the time in base 10 format is displayed in binary on an LED matrix.
 
 For example, 17:15 is expressed on the LED matrix as:
-  0   0 
-  
-  1 0 1
-  
-0 1 0 0
 
-1 1 1 1 
+<pre>
+  0   0
+  1 0 1
+0 1 0 0
+1 1 1 1
+</pre>
 
 where 1 = LED ON and 0 = LED OFF
 
