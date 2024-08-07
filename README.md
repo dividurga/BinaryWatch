@@ -1,6 +1,6 @@
 # Binary Watch Project
 
-Welcome to the Binary Watch project! This repository contains all the files related to the design and development of binary watches using STM32 and ATMega328p microcontrollers.
+Welcome to the Binary Watch project! This repository contains all the files related to the design and development of binary watches using STM32 and ATMega328p microcontrollers. A blog post detailing this can be found at [https://divija.info/](https://divija.info/2024/08/04/binary-display-watch/)
 
 ## Project Overview
 
@@ -35,4 +35,4 @@ The firmware from the STM32 version can be modified to work for this hardware. U
 
 ## Contributing
 
-Contributions are welcome! I'm still struggling with getting the external oscillator to work with my setup. It works perfectly fine on an external Nucleo board. If you have any suggestions or improvements, please open an issue or submit a pull request.
+Contributions are welcome! I'm still struggling with getting the external oscillator to work with my setup. I think the issue is with my choice of extenal capacitors - they should be 15pF instead of 1pF. The RTC section of the code works perfectly fine on an external Nucleo board, so I think it is a hardware issue. If you have any suggestions or improvements, please open an issue or submit a pull request.
