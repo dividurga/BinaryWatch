@@ -10,7 +10,7 @@ For example, 17:45 is expressed on the LED matrix as:
 
 where 1 = LED ON and 0 = LED OFF
 
-This code makes optimizations, like using the lowpower library to conserve battery life, and using the EEPROM memory
+This code makes optimizations, like using the lowpower library to conserve battery life, and using the EEPROM
 to store if the time has been reset already.
 
 Created by Divija Durga, 31 July, 2024
